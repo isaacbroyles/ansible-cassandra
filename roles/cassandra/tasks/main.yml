@@ -1,0 +1,27 @@
+- name: Ensure that java is installed
+  become: yes
+  become_user: root
+  yum: name=java state=present
+  when: ansible_os_family == "RedHat"
+
+- name: Add apache cassandra repository
+  become: yes
+  become_user: root
+  yum_repository:
+    name: cassandra
+    description: Apache Cassandra
+    baseurl: https://www.apache.org/dist/cassandra/redhat/311x/
+    enabled: yes
+    gpgcheck: yes
+    gpgkey: https://www.apache.org/dist/cassandra/KEYS
+
+- name: Yum install cassandra
+  become: yes
+  become_user: root
+  yum: name=cassandra state=present
+  when: ansible_os_family == "RedHat"
+
+# - name: Ensure that cassandra is started
+#   become: yes
+#   become_user: root
+#   service: name=cassandra enabled=yes state=started

@@ -7,7 +7,10 @@
 # you're doing.
 Vagrant.configure("2") do |config|
 
-  config.vm.provider "hyperv"
+  config.vm.provider "hyperv" do |h|
+    h.memory = "1024"
+    h.maxmemory = "2048"
+  end
   
   config.vm.define "cassandra" do |cassandra|
     cassandra.vm.box = "centos/7"
